@@ -11,6 +11,9 @@ public class MatcherService {
 	@Autowired
 	private MatcherDAO matcherDAO;
 	
+	public List<WholeDataVO> getWholeData() throws Exception{
+		return matcherDAO.getWholeData();
+	};
 	public List<ConjunctiveVO> getConjunctive() throws Exception{
 		return matcherDAO.getConjunctive();
 	};

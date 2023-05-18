@@ -7,6 +7,7 @@
 		<typeAlias type="com.iu.base.match.ConjunctiveVO" alias="ConjunctiveVO"/>
 		<typeAlias type="com.iu.base.match.AdjModVO" alias="AdjModVO"/>
 		<typeAlias type="com.iu.base.match.NounVO" alias="NounVO"/>
+		<typeAlias type="com.iu.base.match.WholeDataVO" alias="WholeDataVO"/>
 
 	</typeAliases>
 </configuration>

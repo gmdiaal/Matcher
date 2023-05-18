@@ -3,7 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="com.iu.base.match.MatcherDAO">
-  
-  
-  </mapper>
+<mapper namespace="com.iu.base.match.MatcherDAO">
+
+	<select id="getWholeData" resultType="WholeDataVO">
+		SELECT * FROM WORD
+	</select>
+
+	<select id="getConjunctive" resultType="ConjunctiveVO">
+		SELECT * FROM CONJUNCTIVE
+	</select>
+	<select id="getAdjMod" resultType="AdjModVO">
+		SELECT * FROM ADJMOD
+	</select>
+	<select id="getNoun" resultType="NounVO">
+		SELECT * FROM NOUN
+	</select>
+
+</mapper>

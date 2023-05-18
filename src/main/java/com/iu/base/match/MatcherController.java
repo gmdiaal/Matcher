@@ -7,11 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class MatcherController {
 	
 	@Autowired
 	private MatcherService matcherService;
+	
+	
+	@GetMapping("/allData")
+	public List<WholeDataVO> getWholeData() throws Exception{
+		return matcherService.getWholeData();
+	};
 	
 	@GetMapping("/conjunctive")
 	public List<ConjunctiveVO> getConjunctive() throws Exception{

@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7547555400963637"
+     crossorigin="anonymous"></script>
+
 <meta charset="UTF-8">
 <title>나야나</title>
 <!-- <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -20,16 +23,16 @@
 
 <ul class="nav nav-tabs mt-2 mb-2">
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">접속어</a>
+    <a id="btn_conjunctive" class="nav-link active" aria-current="page" href="#">접속어</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">형용/수식</a>
+    <a id="btn_adjmod" class="nav-link" href="#">형용/수식</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">명사</a>
+    <a id="btn_noun" class="nav-link" href="#">명사</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled">Disabled</a>
+    <a id="btn_leng_dup" class="nav-link ">길이/빈도</a>
   </li>
 </ul>
 
