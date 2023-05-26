@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,6 @@
 
 <div class="container-fluid">
 
-
 <ul class="nav nav-tabs mt-2 mb-2">
   <li class="nav-item">
     <a id="btn_conjunctive" class="nav-link active" aria-current="page" href="#">접속어</a>
@@ -32,19 +32,53 @@
     <a id="btn_noun" class="nav-link" href="#">명사</a>
   </li>
   <li class="nav-item">
-    <a id="btn_leng_dup" class="nav-link ">길이/빈도</a>
+    <a id="btn_leng_dup" class="nav-link" href="#">길이/빈도</a>
   </li>
 </ul>
 
+<div class="menu_trace" data-save=""></div>
 
-<div id="input">
-	<form id="myForm" ction="">
-	  <textarea id="textInput" class="test_match" rows="4" style="height: 500px; width: 500px;"></textarea>
+<div class="form-floating">
+  <select class="form-select searchstand" id="match_range" aria-label="Floating label select example">
+    <option value="1" selected>단락마다</option>
+    <option value="2">위/아래 줄</option>
+    <option value="3">전체글</option>
+  </select>
+  <label for="floatingSelect">범위</label>
+</div>
+<div class="form-floating">
+  <select class="form-select searchLengthInput" id="match_length" aria-label="Floating label select example">
+    <option value="2" selected>2</option>
+    <option value="3">3</option>
+    <option value="4">4+</option>
+  </select>
+  <label for="floatingSelect">중복 글자의 길이</label>
+</div>
+<div class="form-floating">
+  <select class="form-select duplicateLengthInput" id="floatingSelect" aria-label="Floating label select example">
+    <option value="2" selected>2</option>
+    <option value="3">3</option>
+    <option value="4">4+</option>
+  </select>
+  <label for="floatingSelect">중복 횟수</label>
+</div>
+
+<div id="input" class="row">
+	<form id="myForm" action="" class="col-6">
+	  <textarea id="textInput" class="test_match" rows="4" style="height: 500px; width: 100%;">그래서그래서 그래
+	  	
+	  </textarea>
 	  <button type="button" class="btn_sbm btn btn-success">제출</button>
 	</form>
-</div>
 	
-	<div id="result"></div>
+	<form id="out" action="" class="col-6">
+	  <div id="result" class="border border-dark" style="height: 500px; width: 100%;">	  	
+	  </div>
+
+	</form>
+</div>
+
+<!-- 	<div id="result"></div> -->
 
 </div>
 

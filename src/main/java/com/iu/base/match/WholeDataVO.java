@@ -7,6 +7,6 @@ import lombok.Setter;
 public class WholeDataVO {
 	
 	private String name;
-	private Long type;
+	private String type;
 
 }

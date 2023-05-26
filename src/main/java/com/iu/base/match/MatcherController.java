@@ -16,7 +16,9 @@ public class MatcherController {
 	
 	@GetMapping("/allData")
 	public List<WholeDataVO> getWholeData() throws Exception{
-		return matcherService.getWholeData();
+		List<WholeDataVO> ar = matcherService.getWholeData();
+		System.out.println(ar);
+		return ar;
 	};
 	
 	@GetMapping("/conjunctive")

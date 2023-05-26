@@ -2,185 +2,492 @@
  * 
  */
 
+///메인메뉴 버튼 강조 이동
+const navLinks = document.querySelectorAll('.nav-link');
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    // Remove 'active' class from all links
+    navLinks.forEach(link => link.classList.remove('active'));
+    
+    // Add 'active' class to the clicked link
+    link.classList.add('active');
+  });
+});
+
+  // 범위/빈도/길이 하위메뉴 숨기기(form-floating 클래스 요소들을 표시하는 함수)
+  function showFormFloatingElements() {
+    $('.form-floating').show();
+  }
+  function hideFormFloatingElements() {
+    $('.form-floating').hide();
+  }
 
 
+
+////////////// n글자 초과시 짤려서 나옴 
+
+// const regex11 = /[가-힣\w]{3}(?!\w)/g;
+// const text11 = "라떼는 개무식했어";
+
+// const matches11 = text11.match(regex11);
+// console.log(matches11);
+
+////////////// n글자 초과시 안나옴
+const regex11 = /[가-힣\w]{3,3}/g;
+const text11 = "라떼는 개무식했어";
+
+const matches11 = text11.match(regex11);
+console.log(matches11);
 
 //::::::::::::::::::::::::::::::::: 글자 길이와 횟수를 지정 :::::::::::::::::::::::::::::::::::::
 
-// function applyDuplicateColors() {
-//   var search_length = parseInt($('#searchLengthInput').val());
-//   var duplicate_length = parseInt($('#duplicateLengthInput').val());
-//   var text = $("#textInput").val();
+function applyDuplicateColors() {
+  var search_length = parseInt($('#searchLengthInput').val());
+  var duplicate_length = parseInt($('#duplicateLengthInput').val());
+  var text = $("#textInput").val();
 
-//   // 정규식을 사용하여 단어 추출
-//   var words = text.match(/[가-힣\w]+/g);
+  // 정규식을 사용하여 단어 추출
+  var words = text.match(/[가-힣\w]+/g);
 
-//   // 중복된 단어와 그 개수를 저장할 객체
-//   var duplicateCounts = {};
+  // 중복된 단어와 그 개수를 저장할 객체
+  var duplicateCounts = {};
 
-//   // 단락마다 적용할 색상을 저장할 객체
-//   var colors = {};
+  // 단락마다 적용할 색상을 저장할 객체
+  var colors = {};
 
-//   // 중복된 단어를 찾고 개수를 세기
-//   for (var i = 0; i < words.length; i++) {
-//     var word = words[i].toLowerCase();
+  // 중복된 단어를 찾고 개수를 세기
+  for (var i = 0; i < words.length; i++) {
+    var word = words[i].toLowerCase();
 
-//     // search_length 이상의 길이를 가지는 단어만 고려
-//     if (word.length >= search_length) {
-//       if (duplicateCounts[word]) {
-//         duplicateCounts[word]++;
-//       } else {
-//         duplicateCounts[word] = 1;
-//       }
-//     }
-//   }
+    // search_length 이상의 길이를 가지는 단어만 고려
+    if (word.length >= search_length) {
+      if (duplicateCounts[word]) {
+        duplicateCounts[word]++;
+      } else {
+        duplicateCounts[word] = 1;
+      }
+    }
+  }
 
-//   // 중복된 단어에 적용할 색상 생성
-//   var colorIndex = 0;
-//   for (var word in duplicateCounts) {
-//     var count = duplicateCounts[word];
+  // 중복된 단어에 적용할 색상 생성
+  var colorIndex = 0;
+  for (var word in duplicateCounts) {
+    var count = duplicateCounts[word];
 
-//     // duplicate_length 이상 거론된 단어만 고려
-//     if (count >= duplicate_length) {
-//       if (!colors[word]) {
-//         // 새로운 색상 생성
-//         var color = getRandomColor();
-//         colors[word] = color;
-//         colorIndex++;
-//       }
-//     }
-//   }
+    // duplicate_length 이상 거론된 단어만 고려
+    if (count >= duplicate_length) {
+      if (!colors[word]) {
+        // 새로운 색상 생성
+        var color = getRandomColor();
+        colors[word] = color;
+        colorIndex++;
+      }
+    }
+  }
 
-//   // 결과 출력
-//   var result = $('#result');
-//   result.empty();
+  // 결과 출력
+  var result = $('#result');
+  result.empty();
 
-//   var paragraphs = text.split('\n');
-//   for (var j = 0; j < paragraphs.length; j++) {
-//     var paragraph = paragraphs[j].trim();
-//     if (paragraph !== '') {
-//       var highlightedParagraph = $('<p></p>');
-//       var wordsInParagraph = paragraph.split(' ');
+  var paragraphs = text.split('\n');
+  for (var j = 0; j < paragraphs.length; j++) {
+    var paragraph = paragraphs[j].trim();
+    if (paragraph !== '') {
+      var highlightedParagraph = $('<p></p>');
+      var wordsInParagraph = paragraph.split(' ');
 
-//       for (var k = 0; k < wordsInParagraph.length; k++) {
-//         var wordInParagraph = wordsInParagraph[k].toLowerCase();
-//         var color = colors[wordInParagraph];
+      for (var k = 0; k < wordsInParagraph.length; k++) {
+        var wordInParagraph = wordsInParagraph[k].toLowerCase();
+        var color = colors[wordInParagraph];
 
-//         if (color) {
-//           var highlightedWord = $('<span></span>').text(wordsInParagraph[k]).css('background-color', color);
-//           highlightedParagraph.append(highlightedWord);
-//         } else {
-//           highlightedParagraph.append(wordsInParagraph[k]);
-//         }
+        if (color) {
+          var highlightedWord = $('<span></span>').text(wordsInParagraph[k]).css('background-color', color);
+          highlightedParagraph.append(highlightedWord);
+        } else {
+          highlightedParagraph.append(wordsInParagraph[k]);
+        }
 
-//         if (k !== wordsInParagraph.length - 1) {
-//           highlightedParagraph.append(' ');
-//         }
-//       }
+        if (k !== wordsInParagraph.length - 1) {
+          highlightedParagraph.append(' ');
+        }
+      }
 
-//       result.append(highlightedParagraph);
-//     }
-//   }
-// }
+      result.append(highlightedParagraph);
+    }
+  }
+}
 
-// // 랜덤한 배경색을 생성하는 함수
-// function getRandomColor() {
-//   var letters = '0123456789ABCDEF';
-//   var color = '#';
 
-//   for (var i = 0; i < 6; i++) {
-//     color += letters[Math.floor(Math.random() * 16)];
-//   }
 
-//   return color;
-// }
 
-// $(document).ready(function () {
-//   $('.btn_sbm').click(function () {
-//     applyDuplicateColors();
-//   });
-// });
+$(document).ready(function () {
+  $('.btn_sbm').click(function () {
+    applyDuplicateColors();
+  });
+});
 
-//::::::::::::::::::::::::::::::::: 모든 Data를 한번에 :::::::::::::::::::::::::::::::::::::
+
+//::::::::::::::::::::::::::::::::: 모든 Data를 한번에v3 -key값검증 삭제. @정상작동 :::::::::::::::::::::::::::::::::::::
+
+
+var wordsJSON = {}; // 초기에 빈 객체로 선언
 
 $(document).ready(function() {
-  var wordsJSON = {}; // 초기에 빈 객체로 선언
 
-  // 페이지 로딩 시 모든 데이터 받아오기
+  //처음 페이지 로딩 시 검색타입
+  var type = "conjunctive";
+
   $.ajax({
     url: '/allData',
     method: 'GET',
     dataType: 'json',
     success: function(response) {
       wordsJSON = response; // 받은 JSON 데이터를 변수에 저장
+      // console.log(wordsJSON);
+
+      // 데이터를 받은 후 버튼 클릭 핸들러 등록
+      $('#btn_conjunctive').click(function() {
+        type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
+        console.log(type);
+        $(".menu_trace").attr("data-save", $(this).attr('id').split('_')[1])
+        hideFormFloatingElements();
+      });
+
+      $('#btn_adjmod').click(function() {
+        type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
+        console.log(type);
+        $(".menu_trace").attr("data-save", $(this).attr('id').split('_')[1])
+        hideFormFloatingElements();
+      });
+
+      $('#btn_noun').click(function() {
+        type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
+        console.log(type);
+        $(".menu_trace").attr("data-save", $(this).attr('id').split('_')[1])
+        hideFormFloatingElements();
+      });
+
+      //n글자 이상 중복을 출력. 
+      $('#btn_leng_dup').click(function() {
+        showFormFloatingElements();
+
+      });
+
+
+      //제출버튼 클릭 시
+      $('.btn_sbm').click(function() {
+
+        //조건 필터링
+        // var words = wordsJSON[type]; // 해당 type의 데이터 가져오기
+        var words = wordsJSON.filter(function(item) {
+          return item.type == type;
+        });
+        // console.log(words);
+        //조건 필터링 END //@잘 작동됨
+    
+        var text = $("#textInput").val();
+        console.log(text);
+    
+        //측정할 단어들의 범위와 빈도 설정
+        var paragraphs = text.split('\n');
+        var result = ''; //background 컬러가 적용될 text를 담는 용도
+        //측정할 단어들의 범위와 빈도 설정 끝
+
+        for (var i = 0; i < paragraphs.length; i++) {
+          var paragraph = paragraphs[i].trim();
+          var highlightedWords = {};
+    
+          // Count word occurrences in the paragraph
+          for (var j = 0; j < words.length; j++) {
+            var wordArray = words[j].name;
+            console.log(wordArray);
+            var regex = new RegExp(wordArray, 'gi');
+            var occurrences = paragraph.match(regex);
+        
+            if (occurrences && occurrences.length >= 2) {
+              highlightedWords[wordArray] = occurrences.length;
+            }
+
+            //그, 래, 서, 그래, 래서 비교
+            // for (var k = 0; k < wordArray.length; k++) {
+            //   var word = wordArray[k];
+            //   // console.log(word);
+            //   var regex = new RegExp(word, 'gi');
+            //   var occurrences = paragraph.match(regex);
+          
+            //   if (occurrences && occurrences.length >= 2) {
+            //     highlightedWords[word] = occurrences.length;
+            //   }
+            // }
+            //그, 래, 서, 그래, 래서 비교
+
+
+          }
+          
+    
+          // Apply background color to duplicate words
+          var highlightedParagraph = paragraph;
+          for (var word in highlightedWords) {
+            if (highlightedWords.hasOwnProperty(word)) {
+              var occurrences = highlightedWords[word];
+              var color = getRandomColor();
+    
+              var regex = new RegExp(word, 'gi');
+              highlightedParagraph = highlightedParagraph.replace(regex, function(match) {
+                occurrences--;
+                return (occurrences < 0) ? match : '<span style="background-color:' + color + ';">' + match + '</span>';
+              });
+            }
+          }
+    
+          result += '<p>' + highlightedParagraph + '</p>';
+        }
+    
+        $('#result').html(result);
+      });
+
+      // 랜덤한 배경색을 생성하는 함수
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+    
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+    
+        return color;
+      }
+
+
     },
     error: function(xhr, status, error) {
       // 오류 처리
     }
   });
-
-  $('.btn_sbm').click(function() {
-    var type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
-    var words = wordsJSON[type]; // 해당 type의 데이터 가져오기
-
-    var text = $("#textInput").val();
-    console.log(text);
-
-    var paragraphs = text.split('\n');
-    var result = '';
-
-    for (var i = 0; i < paragraphs.length; i++) {
-      var paragraph = paragraphs[i].trim();
-      var highlightedWords = {};
-
-      // Count word occurrences in the paragraph
-      for (var key in words) {
-        if (words.hasOwnProperty(key)) {
-          var wordArray = words[key];
-          for (var j = 0; j < wordArray.length; j++) {
-            var word = wordArray[j];
-            var regex = new RegExp(word, 'gi');
-            var occurrences = paragraph.match(regex);
-
-            if (occurrences && occurrences.length >= 2) {
-              highlightedWords[word] = occurrences.length;
-            }
-          }
-        }
-      }
-
-      // Apply background color to duplicate words
-      var highlightedParagraph = paragraph;
-      for (var word in highlightedWords) {
-        if (highlightedWords.hasOwnProperty(word)) {
-          var occurrences = highlightedWords[word];
-          var color = getRandomColor();
-
-          var regex = new RegExp(word, 'gi');
-          highlightedParagraph = highlightedParagraph.replace(regex, function(match) {
-            occurrences--;
-            return (occurrences < 0) ? match : '<span style="background-color:' + color + ';">' + match + '</span>';
-          });
-        }
-      }
-
-      result += '<p>' + highlightedParagraph + '</p>';
-    }
-
-    $('#result').html(result);
-  });
-
-  function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-
-    return color;
-  }
 });
+
+
+//::::::::::::::::::::::::::::::::: 모든 Data를 한번에v2 :::::::::::::::::::::::::::::::::::::
+
+// var wordsJSON = {}; // 초기에 빈 객체로 선언
+
+// $(document).ready(function() {
+//   var type = "conjunctive";
+
+//   $.ajax({
+//     url: '/allData',
+//     method: 'GET',
+//     dataType: 'json',
+//     success: function(response) {
+//       wordsJSON = response; // 받은 JSON 데이터를 변수에 저장
+//       // console.log(wordsJSON);
+
+//       // 데이터를 받은 후 버튼 클릭 핸들러 등록
+//       $('#btn_conjunctive').click(function() {
+//         type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
+//         console.log(type);
+//       });
+
+//       $('#btn_adjmod').click(function() {
+//         type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
+//         console.log(type);
+//       });
+
+//       $('#btn_noun').click(function() {
+//         type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
+//         console.log(type);
+//       });
+
+
+//       $('.btn_sbm').click(function() {
+
+//         //조건 필터링
+//         // var words = wordsJSON[type]; // 해당 type의 데이터 가져오기
+//         var words = wordsJSON.filter(function(item) {
+//           return item.type == "conjunctive";
+//         });
+//         // console.log(words);
+//         //조건 필터링 END //@잘 작동됨
+    
+//         var text = $("#textInput").val();
+//         console.log(text);
+    
+//         //측정할 단어들의 범위와 빈도 설정
+//         var paragraphs = text.split('\n');
+//         var result = ''; //background 컬러가 적용될 text를 담는 용도
+//         //측정할 단어들의 범위와 빈도 설정 끝
+
+//         for (var i = 0; i < paragraphs.length; i++) {
+//           var paragraph = paragraphs[i].trim();
+//           var highlightedWords = {};
+    
+//           // Count word occurrences in the paragraph
+//           for (var key in words) {
+//             if (words.hasOwnProperty(key)) {
+//               var wordArray = words[key];
+    
+//               // console.log(":::::"+key);
+//               console.log(wordArray.name);
+//               console.log(Object.keys(wordArray).length);
+    
+//               for (var j = 0; j < wordArray.length; j++) {
+//                 var word = wordArray[j].name; // wordArray의 각 항목의 name 속성을 가져옴
+//                 console.log(word);
+//                 var regex = new RegExp(word, 'gi');
+//                 var occurrences = paragraph.match(regex);
+              
+//                 if (occurrences && occurrences.length >= 2) {
+//                   highlightedWords[word] = occurrences.length;
+//                 }
+//               }
+
+//             }
+//           }
+    
+//           // Apply background color to duplicate words
+//           var highlightedParagraph = paragraph;
+//           for (var word in highlightedWords) {
+//             if (highlightedWords.hasOwnProperty(word)) {
+//               var occurrences = highlightedWords[word];
+//               var color = getRandomColor();
+    
+//               var regex = new RegExp(word, 'gi');
+//               highlightedParagraph = highlightedParagraph.replace(regex, function(match) {
+//                 occurrences--;
+//                 return (occurrences < 0) ? match : '<span style="background-color:' + color + ';">' + match + '</span>';
+//               });
+//             }
+//           }
+    
+//           result += '<p>' + highlightedParagraph + '</p>';
+//         }
+    
+//         $('#result').html(result);
+//       });
+    
+//       function getRandomColor() {
+//         var letters = '0123456789ABCDEF';
+//         var color = '#';
+    
+//         for (var i = 0; i < 6; i++) {
+//           color += letters[Math.floor(Math.random() * 16)];
+//         }
+    
+//         return color;
+//       }
+
+
+//     },
+//     error: function(xhr, status, error) {
+//       // 오류 처리
+//     }
+//   });
+// });
+
+//::::::::::::::::::::::::::::::::: 모든 Data를 한번에 :::::::::::::::::::::::::::::::::::::
+
+// var wordsJSON = {}; // 초기에 빈 객체로 선언
+// // 페이지 로딩 시 모든 데이터 받아오기
+//   $.ajax({
+//     url: '/allData',
+//     method: 'GET',
+//     dataType: 'json',
+//     success: function(response) {
+//       wordsJSON = response; // 받은 JSON 데이터를 변수에 저장
+//       console.log('워드JSON TYPE:'+wordsJSON);
+//     },
+//     error: function(xhr, status, error) {
+//       // 오류 처리
+//     }
+//   });
+
+// $(document).ready(function() {
+
+
+
+
+//   var type ="";
+//   $('#btn_conjunctive').click(function() {
+//     type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
+//     console.log(type);
+//   })
+//   $('#btn_adjmod').click(function() {
+//     type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
+//     console.log(type);
+//   })
+//   $('#btn_noun').click(function() {
+//     type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
+//     console.log(type);
+//   })
+
+//   $('.btn_sbm').click(function() {
+//     // type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
+//     var words = wordsJSON[type]; // 해당 type의 데이터 가져오기
+
+//     var text = $("#textInput").val();
+//     console.log(text);
+//     console.log( '워드:'+words);
+//     console.log('워드JSON TYPE:'+wordsJSON[type]);
+
+//     var paragraphs = text.split('\n');
+//     var result = '';
+
+//     for (var i = 0; i < paragraphs.length; i++) {
+//       var paragraph = paragraphs[i].trim();
+//       var highlightedWords = {};
+
+//       // Count word occurrences in the paragraph
+//       for (var key in words) {
+//         if (words.hasOwnProperty(key)) {
+//           var wordArray = words[key];
+
+//           console.log(":::::"+key);
+//           console.log(":::::"+wordArray);
+
+//           for (var j = 0; j < wordArray.length; j++) {
+//             var word = wordArray[j];
+//             var regex = new RegExp(word, 'gi');
+//             var occurrences = paragraph.match(regex);
+
+//             if (occurrences && occurrences.length >= 2) {
+//               highlightedWords[word] = occurrences.length;
+//             }
+//           }
+//         }
+//       }
+
+//       // Apply background color to duplicate words
+//       var highlightedParagraph = paragraph;
+//       for (var word in highlightedWords) {
+//         if (highlightedWords.hasOwnProperty(word)) {
+//           var occurrences = highlightedWords[word];
+//           var color = getRandomColor();
+
+//           var regex = new RegExp(word, 'gi');
+//           highlightedParagraph = highlightedParagraph.replace(regex, function(match) {
+//             occurrences--;
+//             return (occurrences < 0) ? match : '<span style="background-color:' + color + ';">' + match + '</span>';
+//           });
+//         }
+//       }
+
+//       result += '<p>' + highlightedParagraph + '</p>';
+//     }
+
+//     $('#result').html(result);
+//   });
+
+//   function getRandomColor() {
+//     var letters = '0123456789ABCDEF';
+//     var color = '#';
+
+//     for (var i = 0; i < 6; i++) {
+//       color += letters[Math.floor(Math.random() * 16)];
+//     }
+
+//     return color;
+//   }
+// });
 
 //::::::::::::::::::::::::::::::::: 배열->JSON :::::::::::::::::::::::::::::::::::::
 
