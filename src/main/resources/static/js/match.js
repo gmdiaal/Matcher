@@ -31,254 +31,59 @@ const text11 = "라떼는 개무식했어";
 const matches11 = text11.match(regex11);
 console.log(matches11);
 
-let text;
 
 
-//::::::::::::::::::::::::::::::::: 글자 길이와 횟수를 지정 v2 :::::::::::::::::::::::::::::::::::::
-//::::::::::::::::::::::::::::::::: 글자 길이와 횟수를 지정 v4 :::::::::::::::::::::::::::::::::::::
+//::::::::::::::::::::::::::::::::: 띄어쓰기. 글자 길이와 횟수를 지정 v5 :::::::::::::::::::::::::::::::::::::
 
-applyDuplicateColors()
 
-  let match_range = parseInt($('#match_range').val());
-  let match_length = parseInt($('#match_length').val());
-  let match_frequency = parseInt($('#match_freqency').val());
-// var match_length = 2;
-// var match_frequency = 2;
-text = "그래서그래서 그래 니나니나 고릴라야 나야나 나야나 가나다라마 가나다라마 카파하자카파하자";
+//::::::::::::::::::::::::::::::::: 4. 글자 길이와 횟수를 지정 v4 :::::::::::::::::::::::::::::::::::::
 
-function getRandomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+function applyDuplicateColors(){
 
-var regex = new RegExp("[가-힣\\w]{" + match_length + ",}", "g");
-var matches = text.match(regex);
+    let match_range = parseInt($('#match_range').val());
+    let match_length = parseInt($('#match_length').val());
+    let match_frequency = parseInt($('#match_freqency').val());
+    // var match_length = 2;
+    // var match_frequency = 2;
+    let text = $("#textInput").val();
+    // text = "그래서그래서 그래 니나니나 고릴라야 나야나 나야나 가나다라마 가나다라마 카파하자카파하자";
+    
 
-if (matches) {
-  var highlightedText = text;
-
-  for (var i = 0; i < matches.length; i++) {
-    var match = matches[i];
-    var count = text.split(match).length - 1;
-    if (count >= match_frequency) {
-      var color = getRandomColor();
-      highlightedText = highlightedText.replace(new RegExp(match, 'g'), '<span style="background-color: ' + color + '">' + match + '</span>');
+    
+    var regex = new RegExp("[가-힣\\w]{" + match_length + "}", "g");
+    var matches = text.match(regex);
+    
+    if (matches) {
+      var highlightedText = text;
+    
+      for (var i = 0; i < matches.length; i++) {
+        var match = matches[i];
+        var count = text.split(match).length - 1;
+        if (count >= match_frequency) {
+          var color = getRandomColor();
+          highlightedText = highlightedText.replace(new RegExp(match, 'g'), '<span style="background-color: ' + color + '">' + match + '</span>');
+        }
+      }
+      
+      // 줄바꿈을 유지하도록 <br> 태그를 사용
+      highlightedText = highlightedText.replace(/\n/g, '<br>');
+    
+      $("#result").html(highlightedText);
     }
+
+      // // 랜덤한 배경색을 생성하는 함수
+      // function getRandomColor() {
+      //   let letters = '0123456789ABCDEF';
+      //   let color = '#';
+    
+      //   for (let i = 0; i < 6; i++) {
+      //     color += letters[Math.floor(Math.random() * 16)];
+      //   }
+    
+      //   return color;
+      // }
+
   }
-  
-  $("#result").html(highlightedText);
-}
-
-//::::::::::::::::::::::::::::::::: 글자 길이와 횟수를 지정 v3 :::::::::::::::::::::::::::::::::::::
-
-// var match_length = 2;
-// var match_frequency = 2;
-// var text = "그래서그래서 그래 니나니나 고릴라야 나야나 나야나";
-
-// function getRandomColor() {
-//   var letters = "0123456789ABCDEF";
-//   var color = "#";
-//   for (var i = 0; i < 6; i++) {
-//     color += letters[Math.floor(Math.random() * 16)];
-//   }
-//   return color;
-// }
-
-// var regex = new RegExp("[가-힣\\w]{" + match_length + "," + match_length + "}", "g");
-// var matches = text.match(regex);
-
-// if (matches) {
-//   var highlightedText = text;
-//   for (var i = 0; i < matches.length; i++) {
-//     var match = matches[i];
-//     var count = text.split(match).length - 1;
-//     if (count >= match_frequency) {
-//       var color = getRandomColor();
-//       highlightedText = highlightedText.replace(new RegExp(match, 'g'), '<span style="color: ' + color + '">' + match + '</span>');
-//     }
-//   }
-  
-//   $("#result").html(highlightedText);
-// }
-
-//::::::::::::::::::::::::::::::::: 글자 길이와 횟수를 지정 v2 :::::::::::::::::::::::::::::::::::::
-
-// function applyDuplicateColors() {
-//   let match_range = parseInt($('#match_range').val());
-//   let search_length = parseInt($('#match_length').val());
-//   let duplicate_length = parseInt($('#match_freqency').val());
-//   let text = $("#textInput").val();
-
-//   console.log(search_length)
-//   console.log(duplicate_length)
-
-//   // 정규식을 사용하여 단어 추출
-//   let words = text.match(/[가-힣\w]+/g);
-
-//   // 중복된 단어와 그 개수를 저장할 객체
-//   let duplicateCounts = {};
-
-//   // 단락마다 적용할 색상을 저장할 객체
-//   let colors = {};
-
-//   // 중복된 단어를 찾고 개수를 세기
-//   for (let i = 0; i < words.length; i++) {
-//     let word = words[i].toLowerCase();
-
-//     // search_length 이상의 길이를 가지는 단어만 고려
-//     if (word.length >= search_length) {
-//       if (duplicateCounts[word]) {
-//         duplicateCounts[word]++;
-//       } else {
-//         duplicateCounts[word] = 1;
-//       }
-//     }
-//   }
-
-//   // 중복된 단어에 적용할 색상 생성
-//   let colorIndex = 0;
-//   for (let word in duplicateCounts) {
-//     let count = duplicateCounts[word];
-
-//     // duplicate_length 이상 거론된 단어만 고려
-//     if (count >= duplicate_length) {
-//       if (!colors[word]) {
-//         // 새로운 색상 생성
-//         let color = getRandomColor();
-//         colors[word] = color;
-//         colorIndex++;
-//       }
-//     }
-//   }
-
-//   // 결과 출력
-//   let result = $('#result');
-//   result.empty();
-
-//   let paragraphs = text.split('\n');
-//   for (let j = 0; j < paragraphs.length; j++) {
-//     let paragraph = paragraphs[j].trim();
-//     if (paragraph !== '') {
-//       let highlightedParagraph = $('<p></p>');
-//       let wordsInParagraph = paragraph.split(' ');
-
-//       for (let k = 0; k < wordsInParagraph.length; k++) {
-//         let wordInParagraph = wordsInParagraph[k].toLowerCase();
-//         let color = colors[wordInParagraph];
-
-//         if (color) {
-//           let highlightedWord = $('<span></span>').text(wordsInParagraph[k]).css('background-color', color);
-//           highlightedParagraph.append(highlightedWord);
-//         } else {
-//           highlightedParagraph.append(wordsInParagraph[k]);
-//         }
-
-//         if (k !== wordsInParagraph.length - 1) {
-//           highlightedParagraph.append(' ');
-//         }
-//       }
-
-//       result.append(highlightedParagraph);
-//     }
-//   }
-// }
-
-
-
-
-
-
-// //::::::::::::::::::::::::::::::::: 글자 길이와 횟수를 지정 :::::::::::::::::::::::::::::::::::::
-
-// function applyDuplicateColors() {
-//   let search_length = parseInt($('#searchLengthInput').val());
-//   let duplicate_length = parseInt($('#duplicateLengthInput').val());
-//   let match_freqency = parseInt($('#match_freqency').val());
-//   let text = $("#textInput").val();
-
-//   // 정규식을 사용하여 단어 추출
-//   let words = text.match(/[가-힣\w]+/g);
-
-//   // 중복된 단어와 그 개수를 저장할 객체
-//   let duplicateCounts = {};
-
-//   // 단락마다 적용할 색상을 저장할 객체
-//   let colors = {};
-
-//   // 중복된 단어를 찾고 개수를 세기
-//   for (let i = 0; i < words.length; i++) {
-//     let word = words[i].toLowerCase();
-
-//     // search_length 이상의 길이를 가지는 단어만 고려
-//     if (word.length >= search_length) {
-//       if (duplicateCounts[word]) {
-//         duplicateCounts[word]++;
-//       } else {
-//         duplicateCounts[word] = 1;
-//       }
-//     }
-//   }
-
-//   // 중복된 단어에 적용할 색상 생성
-//   let colorIndex = 0;
-//   for (let word in duplicateCounts) {
-//     let count = duplicateCounts[word];
-
-//     // duplicate_length 이상 거론된 단어만 고려
-//     if (count >= duplicate_length) {
-//       if (!colors[word]) {
-//         // 새로운 색상 생성
-//         let color = getRandomColor();
-//         colors[word] = color;
-//         colorIndex++;
-//       }
-//     }
-//   }
-
-//   // 결과 출력
-//   let result = $('#result');
-//   result.empty();
-
-//   let paragraphs = text.split('\n');
-//   for (let j = 0; j < paragraphs.length; j++) {
-//     let paragraph = paragraphs[j].trim();
-//     if (paragraph !== '') {
-//       let highlightedParagraph = $('<p></p>');
-//       let wordsInParagraph = paragraph.split(' ');
-
-//       for (let k = 0; k < wordsInParagraph.length; k++) {
-//         let wordInParagraph = wordsInParagraph[k].toLowerCase();
-//         let color = colors[wordInParagraph];
-
-//         if (color) {
-//           let highlightedWord = $('<span></span>').text(wordsInParagraph[k]).css('background-color', color);
-//           highlightedParagraph.append(highlightedWord);
-//         } else {
-//           highlightedParagraph.append(wordsInParagraph[k]);
-//         }
-
-//         if (k !== wordsInParagraph.length - 1) {
-//           highlightedParagraph.append(' ');
-//         }
-//       }
-
-//       result.append(highlightedParagraph);
-//     }
-//   }
-// }
-
-
-
-
-// $(document).ready(function () {
-//   $('.btn_sbm').click(function () {
-//     applyDuplicateColors();
-//   });
-// });
 
 
 //::::::::::::::::::::::::::::::::: 모든 Data를 한번에v3 -key값검증 삭제. @정상작동 :::::::::::::::::::::::::::::::::::::
@@ -337,6 +142,8 @@ $(document).ready(function() {
       $('.btn_sbm').click(function() {
 
         console.log(type)
+        let text = $("#textInput").val();
+        console.log(text);
 
         if(type != "leng"){
 
@@ -348,11 +155,12 @@ $(document).ready(function() {
           // console.log(words);
           //조건 필터링 END //@잘 작동됨
       
-          text = $("#textInput").val();
-          console.log(text);
+
       
           //측정할 단어들의 범위와 빈도 설정
-          let paragraphs = text.split('\n');
+          // let paragraphs = text.split('\n\n');
+          let paragraphs = text.replace(/\n/g, '<br>').split('<br><br>');
+
           let result = ''; //background 컬러가 적용될 text를 담는 용도
           //측정할 단어들의 범위와 빈도 설정 끝
   
@@ -367,7 +175,7 @@ $(document).ready(function() {
               let regex = new RegExp(wordArray, 'gi');
               let occurrences = paragraph.match(regex);
           
-              if (occurrences && occurrences.length >= 2) {
+              if (occurrences && occurrences.length >= 2) { //2번 이상 일치할 때
                 highlightedWords[wordArray] = occurrences.length;
               }
   
@@ -416,17 +224,38 @@ $(document).ready(function() {
 
       });
 
-      // 랜덤한 배경색을 생성하는 함수
-      function getRandomColor() {
-        let letters = '0123456789ABCDEF';
-        let color = '#';
-    
-        for (let i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
-        }
-    
-        return color;
-      }
+      // // 랜덤한 배경색을 생성하는 함수. (임계값 이상 밝기의)
+      // function getRandomColor() {
+      //   var letters = "0123456789ABCDEF";
+      //   var color = "#";
+      //   var threshold = 128; // 밝기 임계값
+      
+      //   // 랜덤으로 밝은 색상을 생성
+      //   function generateBrightColor() {
+      //     var brightColor = "#";
+      //     for (var i = 0; i < 6; i++) {
+      //       brightColor += letters[Math.floor(Math.random() * 16)];
+      //     }
+      //     return brightColor;
+      //   }
+      
+      //   // 생성된 색상의 밝기 측정
+      //   function getColorBrightness(color) {
+      //     var hex = color.substring(1); // # 제거
+      //     var r = parseInt(hex.substring(0, 2), 16);
+      //     var g = parseInt(hex.substring(2, 4), 16);
+      //     var b = parseInt(hex.substring(4, 6), 16);
+      //     var brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      //     return brightness;
+      //   }
+      
+      //   // 밝기 임계값 이하의 색상을 생성하지 않도록 반복 생성 시도
+      //   do {
+      //     color = generateBrightColor();
+      //   } while (getColorBrightness(color) <= threshold);
+      
+      //   return color;
+      // }
 
 
     },
@@ -435,3 +264,37 @@ $(document).ready(function() {
     }
   });
 });
+
+
+      // 랜덤한 배경색을 생성하는 함수. (임계값 이상 밝기의)
+      function getRandomColor() {
+        var letters = "0123456789ABCDEF";
+        var color = "#";
+        var threshold = 128; // 밝기 임계값
+      
+        // 랜덤으로 밝은 색상을 생성
+        function generateBrightColor() {
+          var brightColor = "#";
+          for (var i = 0; i < 6; i++) {
+            brightColor += letters[Math.floor(Math.random() * 16)];
+          }
+          return brightColor;
+        }
+      
+        // 생성된 색상의 밝기 측정
+        function getColorBrightness(color) {
+          var hex = color.substring(1); // # 제거
+          var r = parseInt(hex.substring(0, 2), 16);
+          var g = parseInt(hex.substring(2, 4), 16);
+          var b = parseInt(hex.substring(4, 6), 16);
+          var brightness = (r * 299 + g * 587 + b * 114) / 1000;
+          return brightness;
+        }
+      
+        // 밝기 임계값 이하의 색상을 생성하지 않도록 반복 생성 시도
+        do {
+          color = generateBrightColor();
+        } while (getColorBrightness(color) <= threshold);
+      
+        return color;
+      }
