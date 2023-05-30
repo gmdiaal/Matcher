@@ -31,18 +31,20 @@ const text11 = "라떼는 개무식했어";
 const matches11 = text11.match(regex11);
 console.log(matches11);
 
-
+let text;
 
 
 //::::::::::::::::::::::::::::::::: 글자 길이와 횟수를 지정 v2 :::::::::::::::::::::::::::::::::::::
 //::::::::::::::::::::::::::::::::: 글자 길이와 횟수를 지정 v4 :::::::::::::::::::::::::::::::::::::
+
+applyDuplicateColors()
 
   let match_range = parseInt($('#match_range').val());
   let match_length = parseInt($('#match_length').val());
   let match_frequency = parseInt($('#match_freqency').val());
 // var match_length = 2;
 // var match_frequency = 2;
-var text = "그래서그래서 그래 니나니나 고릴라야 나야나 나야나 가나다라마 가나다라마 카파하자카파하자";
+text = "그래서그래서 그래 니나니나 고릴라야 나야나 나야나 가나다라마 가나다라마 카파하자카파하자";
 
 function getRandomColor() {
   var letters = "0123456789ABCDEF";
@@ -346,7 +348,7 @@ $(document).ready(function() {
           // console.log(words);
           //조건 필터링 END //@잘 작동됨
       
-          let text = $("#textInput").val();
+          text = $("#textInput").val();
           console.log(text);
       
           //측정할 단어들의 범위와 빈도 설정
