@@ -38,15 +38,16 @@
 
 <div class="menu_trace" data-save=""></div>
 
-<div class="form-floating">
-  <select class="form-select searchstand" id="match_range" aria-label="Floating label select example">
+<div class="row mb-3">
+<div class="form-floating col-6">
+  <select class="form-select searchstand col-6" id="match_range" aria-label="Floating label select example">
     <option value="1" selected>단락마다</option>
     <option value="2">위/아래 줄</option>
     <option value="3">전체글</option>
   </select>
   <label for="floatingSelect">범위</label>
 </div>
-<div class="form-floating">
+<div class="form-floating col-6">
   <select class="form-select searchLengthInput" id="match_length" aria-label="Floating label select example">
     <option value="2" selected>2</option>
     <option value="3">3</option>
@@ -54,18 +55,19 @@
   </select>
   <label for="floatingSelect">중복 글자의 길이</label>
 </div>
-<div class="form-floating">
-  <select class="form-select duplicateLengthInput" id="floatingSelect" aria-label="Floating label select example">
-    <option value="2" selected>2</option>
-    <option value="3">3</option>
+<div class="form-floating col-6">
+  <select class="form-select duplicateLengthInput" id="match_freqency" aria-label="Floating label select example">
+    <option value="2" selected>2+</option>
+    <option value="3">3+</option>
     <option value="4">4+</option>
   </select>
   <label for="floatingSelect">중복 횟수</label>
 </div>
+</div>
 
 <div id="input" class="row">
 	<form id="myForm" action="" class="col-6">
-	  <textarea id="textInput" class="test_match" rows="4" style="height: 500px; width: 100%;">그래서그래서 그래
+	  <textarea id="textInput" class="test_match" rows="4" style="height: 500px; width: 100%;">그래서그래서 그래 니나니나 고릴라야 나야나 나야나
 	  	
 	  </textarea>
 	  <button type="button" class="btn_sbm btn btn-success">제출</button>
