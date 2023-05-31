@@ -29,7 +29,7 @@
     <a id="btn_adjmod" class="nav-link" href="#">형용/수식</a>
   </li>
   <li class="nav-item">
-    <a id="btn_noun" class="nav-link" href="#">명사</a>
+    <a id="btn_gut" class="nav-link" href="#">것</a>
   </li>
   <li class="nav-item">
     <a id="btn_leng_dup" class="nav-link" href="#">길이/빈도</a>

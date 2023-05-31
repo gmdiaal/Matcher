@@ -121,7 +121,7 @@ $(document).ready(function() {
         hideFormFloatingElements();
       });
 
-      $('#btn_noun').click(function() {
+      $('#btn_gut').click(function() {
         type = $(this).attr('id').split('_')[1]; // 버튼 id에서 type 추출
         console.log(type);
         $(".menu_trace").attr("data-save", $(this).attr('id').split('_')[1])
