@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,28 +14,49 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 <style>
+
 </style>
 </head>
 <body>
 
-
+<%-- <c:set var="locale" value="${sessionScope['org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE']}" /> --%>
+<%-- ${locale} --%>
 
 <div class="container-fluid">
 
-<ul class="nav nav-tabs mt-2 mb-2">
-  <li class="nav-item">
-    <a id="btn_conjunctive" class="nav-link active" aria-current="page" href="#">접속어</a>
-  </li>
-  <li class="nav-item">
-    <a id="btn_adjmod" class="nav-link" href="#">형용/수식</a>
-  </li>
-  <li class="nav-item">
-    <a id="btn_gut" class="nav-link" href="#">것</a>
-  </li>
-  <li class="nav-item">
-    <a id="btn_leng_dup" class="nav-link" href="#">길이/빈도</a>
-  </li>
-</ul>
+<div class="row d-flex">
+
+	<ul class="col-10 nav nav-tabs mt-2 mb-2">
+	  <li class="nav-item">
+	    <a id="btn_conjunctive" class="nav-link active" aria-current="page" href="#"><spring:message code="conjunctive"></spring:message></a>
+	  </li>
+
+<c:if test="${sessionScope['org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'] == 'ko'}">  
+	  <li class="nav-item">
+	    <a id="btn_gut" class="nav-link" href="#"><spring:message code="gut"></spring:message></a>
+	  </li>
+</c:if>
+
+	  <li class="nav-item">
+	    <a id="btn_leng_dup" class="nav-link" href="#"><spring:message code="length"></spring:message></a>
+	  </li>
+	</ul>
+
+	<ul class="col-2 nav nav-tabs mt-2 mb-2 justify-content-end">
+	  <li class="nav-item">
+	    <a class="nav-link" href="/?lang=ko">kor</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="/?lang=en">eng</a>
+	  </li>
+	</ul>	
+	
+	
+</div>
+
+
+
+
 
 <div class="menu_trace" data-save=""></div>
 
