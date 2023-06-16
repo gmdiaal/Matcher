@@ -38,52 +38,61 @@ console.log(matches11);
 
 //::::::::::::::::::::::::::::::::: 4. 글자 길이와 횟수를 지정 v4 :::::::::::::::::::::::::::::::::::::
 
+
+
 function applyDuplicateColors(){
+  let match_range = parseInt($('#match_range').val());
+  let match_length = parseInt($('#match_length').val());
+  let match_frequency = parseInt($('#match_freqency').val());
+  let text = $("#textInput").val();
 
-    let match_range = parseInt($('#match_range').val());
-    let match_length = parseInt($('#match_length').val());
-    let match_frequency = parseInt($('#match_freqency').val());
-    // var match_length = 2;
-    // var match_frequency = 2;
-    let text = $("#textInput").val();
-    // text = "그래서그래서 그래 니나니나 고릴라야 나야나 나야나 가나다라마 가나다라마 카파하자카파하자";
-    
+  var regex = new RegExp("[가-힣\\w]{" + match_length + "}", "g");
+  var matches = text.match(regex);
 
-    
-    var regex = new RegExp("[가-힣\\w]{" + match_length + "}", "g");
-    var matches = text.match(regex);
-    
-    if (matches) {
-      var highlightedText = text;
-    
-      for (var i = 0; i < matches.length; i++) {
-        var match = matches[i];
-        var count = text.split(match).length - 1;
-        if (count >= match_frequency) {
-          var color = getRandomColor();
-          highlightedText = highlightedText.replace(new RegExp(match, 'g'), '<span style="background-color: ' + color + '">' + match + '</span>');
+  if (matches) {
+    var highlightedTexts = [];
+
+    if (match_range === 1) {
+        var paragraphs = text.split('\n\n');
+        for (var j = 0; j < paragraphs.length; j++) {
+            var paragraph = paragraphs[j];
+            var highlightedParagraph = applyColorsToText(paragraph, match_length, match_frequency);
+            highlightedTexts.push(highlightedParagraph);
         }
-      }
-      
-      // 줄바꿈을 유지하도록 <br> 태그를 사용
-      highlightedText = highlightedText.replace(/\n/g, '<br>');
-    
-      $("#result").html(highlightedText);
+
+        // <br> 태그를 사용하여 합친 텍스트를 생성
+        var finalHighlightedText = highlightedTexts.join('<br><br>');
+        $("#result").html(finalHighlightedText);
+    } else if (match_range === 3) {
+        var highlightedText = applyColorsToText(text, match_length, match_frequency);
+        $("#result").html(highlightedText);
     }
+}
 
-      // // 랜덤한 배경색을 생성하는 함수
-      // function getRandomColor() {
-      //   let letters = '0123456789ABCDEF';
-      //   let color = '#';
-    
-      //   for (let i = 0; i < 6; i++) {
-      //     color += letters[Math.floor(Math.random() * 16)];
-      //   }
-    
-      //   return color;
-      // }
+  // 랜덤한 배경색을 생성하고 색상을 적용하는 함수
+  function applyColorsToText(text, length, frequency) {
+      var highlightedText = text;
+      var regex = new RegExp("[가-힣\\w]{" + length + "}", "g");
+      var matches = text.match(regex);
 
+      if (matches) {
+          for (var i = 0; i < matches.length; i++) {
+              var match = matches[i];
+              var count = text.split(match).length - 1;
+              if (count >= frequency) {
+                  var color = getRandomColor();
+                  highlightedText = highlightedText.replace(new RegExp(match, 'g'), '<span style="background-color: ' + color + '">' + match + '</span>');
+              }
+          }
+      }
+
+      return highlightedText;
   }
+
+
+}
+
+
 
 
 //::::::::::::::::::::::::::::::::: 모든 Data를 한번에v3 -key값검증 삭제. @정상작동 :::::::::::::::::::::::::::::::::::::
@@ -298,3 +307,15 @@ $(document).ready(function() {
       
         return color;
       }
+
+  //   // 랜덤한 배경색을 생성하는 함수
+  //   function getRandomColor() {
+  //     let letters = '0123456789ABCDEF';
+  //     let color = '#';
+
+  //     for (let i = 0; i < 6; i++) {
+  //         color += letters[Math.floor(Math.random() * 16)];
+  //     }
+
+  //     return color;
+  // }

@@ -63,11 +63,11 @@
 <div class="row mb-3">
 <div class="form-floating col-6">
   <select class="form-select searchstand col-6" id="match_range" aria-label="Floating label select example">
-    <option value="1" selected>단락마다</option>
-    <option value="2">위/아래 줄</option>
-    <option value="3">전체글</option>
+    <option value="1" selected><spring:message code="range_1"></spring:message></option>
+<!--     <option value="2">위/아래 줄</option> -->
+    <option value="3"><spring:message code="range_3"></spring:message></option>
   </select>
-  <label for="floatingSelect">범위</label>
+  <label for="floatingSelect"><spring:message code="range"></spring:message></label>
 </div>
 <div class="form-floating col-6">
   <select class="form-select searchLengthInput" id="match_length" aria-label="Floating label select example">
@@ -75,7 +75,7 @@
     <option value="3">3</option>
     <option value="4">4+</option>
   </select>
-  <label for="floatingSelect">중복 글자의 길이</label>
+  <label for="floatingSelect"><spring:message code="dup_length"></spring:message></label>
 </div>
 <div class="form-floating col-6">
   <select class="form-select duplicateLengthInput" id="match_freqency" aria-label="Floating label select example">
@@ -83,7 +83,7 @@
     <option value="3">3+</option>
     <option value="4">4+</option>
   </select>
-  <label for="floatingSelect">중복 횟수</label>
+  <label for="floatingSelect"><spring:message code="dup_freq"></spring:message></label>
 </div>
 </div>
 
