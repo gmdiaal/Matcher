@@ -89,11 +89,7 @@
 
 <div id="input" class="row">
 	<form id="myForm" action="" class="col-6">
-	  <textarea id="textInput" class="test_match" rows="4" style="height: 500px; width: 100%;">
-그래서그래서 그래 니나니나 고릴라야 나야나 나야나
-그래서
-그래서뭐
-	  </textarea>
+	  <textarea id="textInput" class="test_match" rows="4" style="height: 500px; width: 100%;"></textarea>
 	  <button type="button" class="btn_sbm btn btn-success">제출</button>
 	</form>
 	
