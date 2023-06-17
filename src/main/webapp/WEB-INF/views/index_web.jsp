@@ -44,10 +44,10 @@
 
 	<ul class="col-2 nav nav-tabs mt-2 mb-2 justify-content-end">
 	  <li class="nav-item">
-	    <a class="nav-link" href="/?lang=ko">kor</a>
+	    <a id="kor" class="nav-link" href="/?lang=ko">kor</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="/?lang=en">eng</a>
+	    <a id="eng" class="nav-link" href="/?lang=en">eng</a>
 	  </li>
 	</ul>	
 	
@@ -59,6 +59,9 @@
 
 
 <div class="menu_trace" data-save=""></div>
+<div id="lang_save" hidden=""><spring:message code="lang"></spring:message></div>
+
+
 
 <div class="row mb-3">
 <div class="form-floating col-6">

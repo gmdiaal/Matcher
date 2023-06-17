@@ -24,14 +24,6 @@ navLinks.forEach(link => {
 
 
 
-////////////// n글자 초과시 안나옴
-const regex11 = /[가-힣\w]{3,3}/g;
-const text11 = "라떼는 개무식했어";
-
-const matches11 = text11.match(regex11);
-console.log(matches11);
-
-
 
 //::::::::::::::::::::::::::::::::: 띄어쓰기. 글자 길이와 횟수를 지정 v5 :::::::::::::::::::::::::::::::::::::
 
@@ -46,33 +38,72 @@ function applyDuplicateColors(){
   let match_frequency = parseInt($('#match_freqency').val());
   let text = $("#textInput").val();
 
-  var regex = new RegExp("[가-힣\\w]{" + match_length + "}", "g");
+  var regex = new RegExp("[가-힣\\w]{" + match_length + "}", "gi");
   var matches = text.match(regex);
 
-  if (matches) {
-    var highlightedTexts = [];
 
-    if (match_range === 1) {
-        var paragraphs = text.split('\n\n');
-        for (var j = 0; j < paragraphs.length; j++) {
-            var paragraph = paragraphs[j];
-            var highlightedParagraph = applyColorsToText(paragraph, match_length, match_frequency);
-            highlightedTexts.push(highlightedParagraph);
-        }
+  let language = $("#lang_save").text();
+  console.log($("#lang_save").text());
+  
+	if(language=="korean"){
 
-        // <br> 태그를 사용하여 합친 텍스트를 생성
-        var finalHighlightedText = highlightedTexts.join('<br><br>');
-        $("#result").html(finalHighlightedText);
-    } else if (match_range === 3) {
-        var highlightedText = applyColorsToText(text, match_length, match_frequency);
-        $("#result").html(highlightedText);
-    }
+	  if (matches) {
+	    var highlightedTexts = [];
+	
+	    if (match_range === 1) {
+	        var paragraphs = text.split('\n\n');
+	        for (var j = 0; j < paragraphs.length; j++) {
+	            var paragraph = paragraphs[j];
+	            var highlightedParagraph = applyColorsToText(paragraph, match_length, match_frequency);
+	            highlightedTexts.push(highlightedParagraph);
+	        }
+	
+	        // <br> 태그를 사용하여 합친 텍스트를 생성
+	        var finalHighlightedText = highlightedTexts.join('<br><br>');
+	        $("#result").html(finalHighlightedText);
+	    }else if (match_range === 3) {
+	        var highlightedText = applyColorsToText(text, match_length, match_frequency);
+	        $("#result").html(highlightedText);
+		    }
+		}
+		
+	}
+	
+	else{
+
+	  if (matches) {
+	    var highlightedTexts = [];
+	
+	    if (match_range === 1) {
+	        var paragraphs = text.split('\n\n');
+	        for (var j = 0; j < paragraphs.length; j++) {
+	            var paragraph = paragraphs[j];
+	            var highlightedParagraph = applyColorsToTextEng(paragraph, match_length, match_frequency);
+	            highlightedTexts.push(highlightedParagraph);
+	        }
+	
+	        // <br> 태그를 사용하여 합친 텍스트를 생성
+	        var finalHighlightedText = highlightedTexts.join('<br><br>');
+	        $("#result").html(finalHighlightedText);
+	    } else if (match_range === 3) {
+	        var highlightedText = applyColorsToTextEng(text, match_length, match_frequency);
+	        $("#result").html(highlightedText);
+		    }
+		}
+				
+	}
+
+
+
 }
+
+
+
 
   // 랜덤한 배경색을 생성하고 색상을 적용하는 함수
   function applyColorsToText(text, length, frequency) {
       var highlightedText = text;
-      var regex = new RegExp("[가-힣\\w]{" + length + "}", "g");
+      var regex = new RegExp("[가-힣\\w]{" + length + "}", "gi");
       var matches = text.match(regex);
 
       if (matches) {
@@ -81,7 +112,7 @@ function applyDuplicateColors(){
               var count = text.split(match).length - 1;
               if (count >= frequency) {
                   var color = getRandomColor();
-                  highlightedText = highlightedText.replace(new RegExp(match, 'g'), '<span style="background-color: ' + color + '">' + match + '</span>');
+                  highlightedText = highlightedText.replace(new RegExp(match, 'gi'), '<span style="background-color: ' + color + '">' + match + '</span>');
               }
           }
       }
@@ -89,10 +120,34 @@ function applyDuplicateColors(){
       return highlightedText;
   }
 
+  // (영어)랜덤한 배경색을 생성하고 색상을 적용하는 함수
+  function applyColorsToTextEng(text, length, frequency) {
+      var highlightedText = text;
+      var regex = new RegExp("[가-힣\\w]{" + length + "}", "gi");
+      var matches = text.match(regex);
 
-}
+      if (matches) {
+          for (var i = 0; i < matches.length; i++) {
+              var match = matches[i];
+              var count = text.split(match).length - 1;
+              if (count >= frequency) {
+                  var color = getRandomColor();
+
+highlightedText = highlightedText.replace(new RegExp('\\b' + match + '\\b', 'g'), function(matchedWord) {
+    if (matchedWord.toLowerCase() === match.toLowerCase()) {
+        return '<span style="background-color: ' + color + '">' + matchedWord + '</span>';
+    } else {
+        return matchedWord;
+    }
+});
 
 
+              }
+          }
+      }
+
+      return highlightedText;
+  }
 
 
 //::::::::::::::::::::::::::::::::: 모든 Data를 한번에v3 -key값검증 삭제. @정상작동 :::::::::::::::::::::::::::::::::::::
@@ -145,8 +200,19 @@ $(document).ready(function() {
         showFormFloatingElements();
 
       });
-
-
+      
+      //언어구분
+//      $('#kor').click(function() {
+//        language = $(this).attr('id');
+//        console.log(language);
+//      });
+//      $('#eng').click(function() {
+//        language = $(this).attr('id');
+//        console.log(language);
+//      });
+      
+      
+      
       //제출버튼 클릭 시
       $('.btn_sbm').click(function() {
 
@@ -155,7 +221,7 @@ $(document).ready(function() {
         console.log(text);
 
         if(type != "leng"){
-
+			console.log('접속어.')
           //조건 필터링
           // let words = wordsJSON[type]; // 해당 type의 데이터 가져오기
           let words = wordsJSON.filter(function(item) {
@@ -188,20 +254,7 @@ $(document).ready(function() {
                 highlightedWords[wordArray] = occurrences.length;
               }
   
-              //그, 래, 서, 그래, 래서 비교
-              // for (let k = 0; k < wordArray.length; k++) {
-              //   let word = wordArray[k];
-              //   // console.log(word);
-              //   let regex = new RegExp(word, 'gi');
-              //   let occurrences = paragraph.match(regex);
-            
-              //   if (occurrences && occurrences.length >= 2) {
-              //     highlightedWords[word] = occurrences.length;
-              //   }
-              // }
-              //그, 래, 서, 그래, 래서 비교
-  
-  
+
             }
             
       
@@ -226,7 +279,7 @@ $(document).ready(function() {
           $('#result').html(result);
         }else{
           //길이/빈도 검색
-          console.log('else문이 호출됨.')
+          console.log('커스텀단어.')
           applyDuplicateColors()
 
         }
