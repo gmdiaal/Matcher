@@ -39,6 +39,8 @@ function applyDuplicateColors(){
   let text = $("#textInput").val();
 
   var regex = new RegExp("[가-힣\\w]{" + match_length + "}", "gi");
+  if(match_length==4){regex = new RegExp("[가-힣\\w]{" + match_length + ",}", "gi");}
+
   var matches = text.match(regex);
 
 
@@ -103,7 +105,10 @@ function applyDuplicateColors(){
   // 랜덤한 배경색을 생성하고 색상을 적용하는 함수
   function applyColorsToText(text, length, frequency) {
       var highlightedText = text;
-      var regex = new RegExp("[가-힣\\w]{" + length + "}", "gi");
+      
+	  var regex = new RegExp("[가-힣]{" + length + "}", "gi");
+	  if(length==4){regex = new RegExp("[가-힣]{" + length + ",}", "gi");}
+	  
       var matches = text.match(regex);
 
       if (matches) {
@@ -123,7 +128,10 @@ function applyDuplicateColors(){
   // (영어)랜덤한 배경색을 생성하고 색상을 적용하는 함수
   function applyColorsToTextEng(text, length, frequency) {
       var highlightedText = text;
-      var regex = new RegExp("[가-힣\\w]{" + length + "}", "gi");
+      
+	  var regex = new RegExp("[A-Za-z]{" + length + "}", "gi");
+	  if (length == 4) { regex = new RegExp("[A-Za-z\\w]{" + length + ",}", "gi"); }
+	
       var matches = text.match(regex);
 
       if (matches) {
@@ -132,16 +140,7 @@ function applyDuplicateColors(){
               var count = text.split(match).length - 1;
               if (count >= frequency) {
                   var color = getRandomColor();
-
-highlightedText = highlightedText.replace(new RegExp('\\b' + match + '\\b', 'g'), function(matchedWord) {
-    if (matchedWord.toLowerCase() === match.toLowerCase()) {
-        return '<span style="background-color: ' + color + '">' + matchedWord + '</span>';
-    } else {
-        return matchedWord;
-    }
-});
-
-
+                  highlightedText = highlightedText.replace(new RegExp(match, 'gi'), '<span style="background-color: ' + color + '">' + match + '</span>');
               }
           }
       }
