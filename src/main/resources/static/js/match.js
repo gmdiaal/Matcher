@@ -95,8 +95,6 @@ function applyDuplicateColors(){
 				
 	}
 
-
-
 }
 
 
@@ -200,17 +198,6 @@ $(document).ready(function() {
 
       });
       
-      //언어구분
-//      $('#kor').click(function() {
-//        language = $(this).attr('id');
-//        console.log(language);
-//      });
-//      $('#eng').click(function() {
-//        language = $(this).attr('id');
-//        console.log(language);
-//      });
-      
-      
       
       //제출버튼 클릭 시
       $('.btn_sbm').click(function() {
@@ -242,7 +229,7 @@ $(document).ready(function() {
             let paragraph = paragraphs[i].trim();
             let highlightedWords = {};
       
-            // Count word occurrences in the paragraph
+            // 일치 획수 검색
             for (let j = 0; j < words.length; j++) {
               let wordArray = words[j].name;
               console.log(wordArray);
@@ -257,7 +244,7 @@ $(document).ready(function() {
             }
             
       
-            // Apply background color to duplicate words
+            // 색상 적용
             let highlightedParagraph = paragraph;
             for (let word in highlightedWords) {
               if (highlightedWords.hasOwnProperty(word)) {
@@ -284,40 +271,6 @@ $(document).ready(function() {
         }
 
       });
-
-      // // 랜덤한 배경색을 생성하는 함수. (임계값 이상 밝기의)
-      // function getRandomColor() {
-      //   var letters = "0123456789ABCDEF";
-      //   var color = "#";
-      //   var threshold = 128; // 밝기 임계값
-      
-      //   // 랜덤으로 밝은 색상을 생성
-      //   function generateBrightColor() {
-      //     var brightColor = "#";
-      //     for (var i = 0; i < 6; i++) {
-      //       brightColor += letters[Math.floor(Math.random() * 16)];
-      //     }
-      //     return brightColor;
-      //   }
-      
-      //   // 생성된 색상의 밝기 측정
-      //   function getColorBrightness(color) {
-      //     var hex = color.substring(1); // # 제거
-      //     var r = parseInt(hex.substring(0, 2), 16);
-      //     var g = parseInt(hex.substring(2, 4), 16);
-      //     var b = parseInt(hex.substring(4, 6), 16);
-      //     var brightness = (r * 299 + g * 587 + b * 114) / 1000;
-      //     return brightness;
-      //   }
-      
-      //   // 밝기 임계값 이하의 색상을 생성하지 않도록 반복 생성 시도
-      //   do {
-      //     color = generateBrightColor();
-      //   } while (getColorBrightness(color) <= threshold);
-      
-      //   return color;
-      // }
-
 
     },
     error: function(xhr, status, error) {
@@ -359,15 +312,3 @@ $(document).ready(function() {
       
         return color;
       }
-
-  //   // 랜덤한 배경색을 생성하는 함수
-  //   function getRandomColor() {
-  //     let letters = '0123456789ABCDEF';
-  //     let color = '#';
-
-  //     for (let i = 0; i < 6; i++) {
-  //         color += letters[Math.floor(Math.random() * 16)];
-  //     }
-
-  //     return color;
-  // }
