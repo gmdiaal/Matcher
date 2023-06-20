@@ -62,10 +62,10 @@ function applyDuplicateColors() {
 function applyColorsToText(text, length, frequency) {
 	var highlightedText = text;
 
-var regex = new RegExp(">[^<]+(?=<\/[^>]+>)|(?<![\uAC00-\uD7A3A-Za-z])[\uAC00-\uD7A3A-Za-z]{" + length + ",}(?![\uAC00-\uD7A3A-Za-z])", "gi");
-if (length == 4) {
-    regex = new RegExp(">[^<]+(?=<\/[^>]+>)|(?<![\uAC00-\uD7A3A-Za-z])[\uAC00-\uD7A3A-Za-z]{" + length + ",}", "gi");
-}
+	var regex = new RegExp(">[^<]+(?=<\/[^>]+>)|(?<!\\p{L})\\p{L}{" + length + ",}(?!\\p{L})", "gu");
+	if (length == 4) {
+		regex = new RegExp(">[^<]+(?=<\/[^>]+>)|(?<!\\p{L})\\p{L}{" + length + ",}", "gu");
+	}
 
 	var matches = text.match(regex);
 	console.log("matches: ", matches);
@@ -90,7 +90,7 @@ if (length == 4) {
 
 				var color = colors[match];
 				highlightedText = highlightedText.replace(
-					new RegExp("(?<!<[^>]*[^<])" + match + "(?!([^>]*>)|([^<]*<\/))", "gi"),
+					new RegExp("(?<!<[^>]*[^<])" + match + "(?!([^>]*>)|([^<]*<\/))", "g"),
 					'<span style="background-color: ' + color + '">' + match + '</span>'
 				);
 			}
