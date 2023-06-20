@@ -38,18 +38,11 @@ function applyDuplicateColors(){
   let match_frequency = parseInt($('#match_freqency').val());
   let text = $("#textInput").val();
 
-  var regex = new RegExp("[가-힣\\w]{" + match_length + "}", "gi");
-  if(match_length==4){regex = new RegExp("[가-힣\\w]{" + match_length + ",}", "gi");}
-
-  var matches = text.match(regex);
-
 
   let language = $("#lang_save").text();
   console.log($("#lang_save").text());
   
 	if(language=="korean"){
-
-	  if (matches) {
 	    var highlightedTexts = [];
 	
 	    if (match_range === 1) {
@@ -67,13 +60,10 @@ function applyDuplicateColors(){
 	        var highlightedText = applyColorsToText(text, match_length, match_frequency);
 	        $("#result").html(highlightedText);
 		    }
-		}
-		
 	}
 	
 	else{
 
-	  if (matches) {
 	    var highlightedTexts = [];
 	
 	    if (match_range === 1) {
@@ -91,7 +81,6 @@ function applyDuplicateColors(){
 	        var highlightedText = applyColorsToTextEng(text, match_length, match_frequency);
 	        $("#result").html(highlightedText);
 		    }
-		}
 				
 	}
 
@@ -100,8 +89,9 @@ function applyDuplicateColors(){
 
 
 
-  // 랜덤한 배경색을 생성하고 색상을 적용하는 함수
+// 랜덤한 배경색을 생성하고 색상을 적용하는 함수// 랜덤한 배경색을 생성하고 색상을 적용하는 함수// 랜덤한 배경색을 생성하고 색상을 적용하는 함수// 랜덤한 배경색을 생성하고 색상을 적용하는 함수
   function applyColorsToText(text, length, frequency) {
+	  console.log('한글txt: ',text)
       var highlightedText = text;
       
 	  var regex = new RegExp("[가-힣]{" + length + "}", "gi");
@@ -112,6 +102,7 @@ function applyDuplicateColors(){
       if (matches) {
           for (var i = 0; i < matches.length; i++) {
               var match = matches[i];
+              console.log('한글 match: ',match)
               var count = text.split(match).length - 1;
               if (count >= frequency) {
                   var color = getRandomColor();
@@ -123,28 +114,79 @@ function applyDuplicateColors(){
       return highlightedText;
   }
 
-  // (영어)랜덤한 배경색을 생성하고 색상을 적용하는 함수
-  function applyColorsToTextEng(text, length, frequency) {
-      var highlightedText = text;
-      
-	  var regex = new RegExp("[A-Za-z]{" + length + "}", "gi");
-	  if (length == 4) { regex = new RegExp("[A-Za-z\\w]{" + length + ",}", "gi"); }
-	
-      var matches = text.match(regex);
+// (영어)랜덤한 배경색을 생성하고 색상을 적용하는 함수  // (영어)랜덤한 배경색을 생성하고 색상을 적용하는 함수  // (영어)랜덤한 배경색을 생성하고 색상을 적용하는 함수  // (영어)랜덤한 배경색을 생성하고 색상을 적용하는 함수
+//  function applyColorsToTextEng(text, length, frequency) {
+//      var highlightedText = text;
+//      
+//	  var regex = new RegExp("[A-Za-z\\w]{" + length + "}", "gi");
+//	  if (length == 4) { regex = new RegExp("[A-Za-z\\w]{" + length + ",}", "gi"); }
+//	
+//      var matches = text.match(regex);
+//      console.log("matches eng: ", matches)
+//
+//      if (matches) {
+//          for (var i = 0; i < matches.length; i++) {
+//              var match = matches[i];
+//              var count = text.split(match).length - 1;
+//              if (count >= frequency) {
+//                  var color = getRandomColor();
+//                  highlightedText = highlightedText.replace(new RegExp("(?<!<span[^>]*>)" + match + "(?!<\/span>)", "gi"), '<span style="background-color: ' + color + '">' + match + '</span>');
+//              }
+//          }
+//      }
+//
+//      return highlightedText;
+//  }
 
-      if (matches) {
-          for (var i = 0; i < matches.length; i++) {
-              var match = matches[i];
-              var count = text.split(match).length - 1;
-              if (count >= frequency) {
-                  var color = getRandomColor();
-                  highlightedText = highlightedText.replace(new RegExp(match, 'gi'), '<span style="background-color: ' + color + '">' + match + '</span>');
-              }
-          }
+function applyColorsToTextEng(text, length, frequency) {
+  var highlightedText = text;
+
+  var regex = new RegExp(">[^<]+(?=<\/[^>]+>)|\\b[A-Za-z\\w]{" + length + "}", "gi");
+  if (length == 4) {
+    regex = new RegExp(">[^<]+(?=<\/[^>]+>)|\\b[A-Za-z\\w]{" + length + ",}", "gi");
+  }
+
+  var matches = text.match(regex);
+  console.log("matches eng: ", matches);
+
+  if (matches) {
+    var colors = {};
+
+    for (var i = 0; i < matches.length; i++) {
+      var match = matches[i];
+
+      if (match[0] === ">") {
+        // HTML 태그인 경우 건너뜀
+        continue;
       }
 
-      return highlightedText;
+      var count = text.split(match).length - 1;
+
+      if (count >= frequency) {
+        if (!colors.hasOwnProperty(match)) {
+          colors[match] = getRandomColor();
+        }
+
+        var color = colors[match];
+        highlightedText = highlightedText.replace(
+          new RegExp("(?<!<[^>]*[^<])" + match + "(?!([^>]*>)|([^<]*<\/))", "gi"),
+          '<span style="background-color: ' + color + '">' + match + '</span>'
+        );
+      }
+    }
   }
+
+  return highlightedText;
+}
+
+function applyColorsToTextEngHTML(text, length, frequency) {
+  var highlightedText = applyColorsToTextEng(text, length, frequency);
+
+  var parser = new DOMParser();
+  var doc = parser.parseFromString(highlightedText, "text/html");
+
+  return doc.documentElement.textContent;
+}
 
 
 //::::::::::::::::::::::::::::::::: 모든 Data를 한번에v3 -key값검증 삭제. @정상작동 :::::::::::::::::::::::::::::::::::::
@@ -232,7 +274,7 @@ $(document).ready(function() {
             // 일치 획수 검색
             for (let j = 0; j < words.length; j++) {
               let wordArray = words[j].name;
-              console.log(wordArray);
+//              console.log(wordArray);
               let regex = new RegExp(wordArray, 'gi');
               let occurrences = paragraph.match(regex);
           
