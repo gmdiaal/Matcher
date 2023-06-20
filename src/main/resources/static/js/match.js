@@ -95,18 +95,6 @@ function applyColorsToText(text, length, frequency) {
 	return highlightedText;
 }
 
-
-/*
-function applyColorsToTextHTML(text, length, frequency) {
-	var highlightedText = applyColorsToText(text, length, frequency);
-
-	var parser = new DOMParser();
-	var doc = parser.parseFromString(highlightedText, "text/html");
-
-	return doc.documentElement.textContent;
-}
-*/
-
 //::::::::::::::::::::::::::::::::: 모든 Data를 한번에v3 -key값검증 삭제. @정상작동 :::::::::::::::::::::::::::::::::::::
 
 
