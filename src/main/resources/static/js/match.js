@@ -245,7 +245,7 @@ $(document).ready(function() {
 function getRandomColor() {
 	var letters = "0123456789ABCDEF";
 	var color = "#";
-	var threshold = 128; // 밝기 임계값
+	var threshold = 128; // 밝기 임계값 //하늘색은 여전히 흰색과 구분이안댐.. 청색파장 없애서그런가..?
 
 	// 랜덤으로 밝은 색상을 생성
 	function generateBrightColor() {
