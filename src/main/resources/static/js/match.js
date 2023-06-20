@@ -214,7 +214,8 @@ $(document).ready(function() {
 								let occurrences = highlightedWords[word];
 								let color = getRandomColor();
 
-								let regex = new RegExp(word, 'gi');
+//								let regex = new RegExp(word, 'gi');
+								let regex = new RegExp('\\b' + word + '\\b', 'gi');
 								highlightedParagraph = highlightedParagraph.replace(regex, function(match) {
 									occurrences--;
 									return (occurrences < 0) ? match : '<span style="background-color:' + color + ';">' + match + '</span>';
