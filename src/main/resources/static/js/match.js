@@ -76,11 +76,6 @@ function applyColorsToText(text, length, frequency) {
 		for (var i = 0; i < matches.length; i++) {
 			var match = matches[i];
 
-			if (match[0] === ">") {
-				// HTML 태그인 경우 건너뜀
-				continue;
-			}
-
 			var count = text.split(match).length - 1;
 
 			if (count >= frequency) {
@@ -90,7 +85,7 @@ function applyColorsToText(text, length, frequency) {
 
 				var color = colors[match];
 				highlightedText = highlightedText.replace(
-					new RegExp("(?<!<[^>]*[^<])" + match + "(?!([^>]*>)|([^<]*<\/))", "g"),
+					new RegExp("(?<!<[^>]*[^<])" + match + "(?<!<[^>]*[^<])", "g"),
 					'<span style="background-color: ' + color + '">' + match + '</span>'
 				);
 			}
@@ -100,6 +95,8 @@ function applyColorsToText(text, length, frequency) {
 	return highlightedText;
 }
 
+
+/*
 function applyColorsToTextHTML(text, length, frequency) {
 	var highlightedText = applyColorsToText(text, length, frequency);
 
@@ -108,7 +105,7 @@ function applyColorsToTextHTML(text, length, frequency) {
 
 	return doc.documentElement.textContent;
 }
-
+*/
 
 //::::::::::::::::::::::::::::::::: 모든 Data를 한번에v3 -key값검증 삭제. @정상작동 :::::::::::::::::::::::::::::::::::::
 
