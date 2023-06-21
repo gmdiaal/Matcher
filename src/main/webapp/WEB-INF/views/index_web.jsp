@@ -30,16 +30,14 @@
 	  <li class="nav-item">
 	    <a id="btn_conjunctive" class="nav-link active" aria-current="page" href="#"><spring:message code="conjunctive"></spring:message></a>
 	  </li>
-
+	  <li class="nav-item">
+	    <a id="btn_leng_dup" class="nav-link" href="#"><spring:message code="length"></spring:message></a>
+	  </li>
 <c:if test="${sessionScope['org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'] == 'ko'}">  
 	  <li class="nav-item">
 	    <a id="btn_gut" class="nav-link" href="#"><spring:message code="gut"></spring:message></a>
 	  </li>
 </c:if>
-
-	  <li class="nav-item">
-	    <a id="btn_leng_dup" class="nav-link" href="#"><spring:message code="length"></spring:message></a>
-	  </li>
 	</ul>
 
 	<ul class="col-2 nav nav-tabs mt-2 mb-2 justify-content-end">
