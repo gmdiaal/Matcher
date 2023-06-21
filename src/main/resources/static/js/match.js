@@ -175,6 +175,7 @@ $(document).ready(function() {
 
 					for (let i = 0; i < paragraphs.length; i++) {
 						let paragraph = paragraphs[i].trim();
+						console.log("paragraph: ", paragraph)
 						let highlightedWords = {};
 
 						// 일치 획수 검색
@@ -183,9 +184,12 @@ $(document).ready(function() {
 							//              console.log(wordArray);
 							let regex = new RegExp(wordArray, 'gi');
 							let occurrences = paragraph.match(regex);
-
+//							console.log("occurrences: ", occurrences)
 							if (occurrences && occurrences.length >= 2) { //2번 이상 일치할 때
+								console.log("두번이상일치함")
 								highlightedWords[wordArray] = occurrences.length;
+								console.log("occurrences.length: ", occurrences.length)
+								console.log("highlightedWords[wordArray]: ", highlightedWords[wordArray])
 							}
 
 
@@ -199,14 +203,24 @@ $(document).ready(function() {
 								let occurrences = highlightedWords[word];
 								let color = getRandomColor();
 
-//								let regex = new RegExp(word, 'gi');
-								let regex = new RegExp('\\b' + word + '\\b', 'gi');
+								let regex;
+								if($("#lang_save").text()=='korean'){
+									regex = new RegExp(word, 'gi'); //띄어쓰기
+								}else{
+									regex = new RegExp('\\b'+word+'\\b', 'gi'); //한글안댐	
+								}
+//								let regex = new RegExp('(\\s|^)' + word + '(\\s|$)', 'gi');
+//								let regex = new RegExp('(^|[^\\u3131-\\uD79D])' + word + '($|[^\\u3131-\\uD79D])', 'gi');
+
+								
+								console.log("regex: ", regex)
 								highlightedParagraph = highlightedParagraph.replace(regex, function(match) {
 									occurrences--;
 									return (occurrences < 0) ? match : '<span style="background-color:' + color + ';">' + match + '</span>';
 								});
 							}
 						}
+						console.log("적용된 highlightedParagraph: ", highlightedParagraph)
 
 						result += '<p>' + highlightedParagraph + '</p>';
 					}
